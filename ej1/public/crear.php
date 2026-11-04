@@ -12,6 +12,11 @@
         $errores=false;
         if(!esLongitudCadenaValida($nombre, 3, 50, 'nombre')){
             $errores=true;
+        }else{
+            // La longitud es correcta, comprobemos que el nombre no esta duplicado
+            if(existeNombre($nombre, $llave)){
+                $errores=true;
+            }
         }
         if(!esLongitudCadenaValida($descripcion, 10, 500, 'descripcion')){
             $errores=true;
@@ -102,6 +107,7 @@
                                   focus:outline-none focus:ring-4
                                   focus:ring-indigo-500/10">
                 </div>
+                <?php pintarError('err_nombre') ?>
 
                 <!-- Descripción -->
                 <div class="mb-8">
@@ -124,10 +130,9 @@
                                      focus:outline-none focus:ring-4
                                      focus:ring-indigo-500/10"><?= $descripcion ?></textarea>
 
-                    <p class="mt-2 text-xs text-slate-400">
-                        Introduce la información más relevante del artículo.
-                    </p>
+                    
                 </div>
+                <?php pintarError('err_descripcion') ?>
 
                 <!-- Separador -->
                 <div class="mb-6 border-t border-slate-100"></div>

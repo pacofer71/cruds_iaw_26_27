@@ -1,10 +1,10 @@
 <?php
-    require __DIR__."/../BD/conexion.php";
-    $q="select * from articulos order by id desc";
-    $resultados=mysqli_query($llave, $q);
-    mysqli_close($llave);
-    // resultado guarda un array con todos los elementos
-    //cada elemento es un array con los campos id, nombre, descripcion
+require __DIR__ . "/../BD/conexion.php";
+$q = "select * from articulos order by id desc";
+$resultados = mysqli_query($llave, $q);
+mysqli_close($llave);
+// resultado guarda un array con todos los elementos
+//cada elemento es un array con los campos id, nombre, descripcion
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,82 +84,85 @@
                     <tbody class="divide-y divide-slate-100">
 
                         <!-- Fila de ejemplo -->
-                         <?php foreach($resultados as $articulo): ?>
-                        <tr class="transition hover:bg-slate-50">
+                        <?php foreach ($resultados as $articulo): ?>
+                            <tr class="transition hover:bg-slate-50">
 
-                            <td class="whitespace-nowrap px-6 py-5">
-                                <span class="rounded-lg bg-slate-100 px-3 py-1
+                                <td class="whitespace-nowrap px-6 py-5">
+                                    <span class="rounded-lg bg-slate-100 px-3 py-1
                                              font-mono text-xs font-semibold
                                              text-slate-600">
-                                    <?= $articulo['id'] ?>
-                                </span>
-                            </td>
+                                        <?= $articulo['id'] ?>
+                                    </span>
+                                </td>
 
-                            <td class="whitespace-nowrap px-6 py-5">
-                                <span class="font-semibold text-slate-800">
-                                    <?= $articulo['nombre'] ?>
-                                </span>
-                            </td>
+                                <td class="whitespace-nowrap px-6 py-5">
+                                    <span class="font-semibold text-slate-800">
+                                        <?= $articulo['nombre'] ?>
+                                    </span>
+                                </td>
 
-                            <td class="max-w-sm px-6 py-5 text-slate-500">
-                                <?= $articulo['descripcion'] ?>
-                            </td>
+                                <td class="max-w-sm px-6 py-5 text-slate-500">
+                                    <?= $articulo['descripcion'] ?>
+                                </td>
 
-                            <td class="whitespace-nowrap px-6 py-5">
-                                <div class="flex items-center justify-end gap-2">
+                                <td class="whitespace-nowrap px-6 py-5">
+                                    <form method="POST" action="borrar.php">
+                                        <input type="hidden" name="codigo" value="<?= $articulo['id'] ?>" />
+                                        <div class="flex items-center justify-end gap-2">
 
-                                    <!-- Editar -->
-                                    <a href="editar.php?id=1"
-                                        class="inline-flex items-center gap-1.5
+                                            <!-- Editar -->
+                                            <a href="editar.php?codigo=<?= $articulo['id'] ?>"
+                                                class="inline-flex items-center gap-1.5
                                               rounded-lg border border-indigo-200
                                               bg-indigo-50 px-3 py-2
                                               text-xs font-semibold text-indigo-700
                                               transition hover:bg-indigo-100">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="m16.862 4.487 2.651 2.651
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-4 w-4"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    stroke-width="2">
+                                                    <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="m16.862 4.487 2.651 2.651
                                                      M7 17l4-1 9-9a2.121
                                                      2.121 0 0 0-3-3l-9
                                                      9-1 4z" />
-                                        </svg>
-                                        Editar
-                                    </a>
+                                                </svg>
+                                                Editar
+                                            </a>
 
-                                    <!-- Eliminar -->
-                                    <a href="eliminar.php?id=1"
-                                        class="inline-flex items-center gap-1.5
+                                            <!-- Eliminar -->
+                                            <button type="submit" onclick="return confirm('¿Eliminar el articulo definitivamente?')"
+                                                class="inline-flex items-center gap-1.5
                                               rounded-lg border border-rose-200
                                               bg-rose-50 px-3 py-2
                                               text-xs font-semibold text-rose-600
                                               transition hover:bg-rose-100">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            stroke-width="2">
-                                            <path stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M19 7l-.867 12.142
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-4 w-4"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    stroke-width="2">
+                                                    <path stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        d="M19 7l-.867 12.142
                                                      A2 2 0 0 1 16.138 21H7.862
                                                      a2 2 0 0 1-1.995-1.858L5
                                                      7m5 4v6m4-6v6M9 7V4
                                                      a1 1 0 0 1 1-1h4a1 1
                                                      0 0 1 1 1v3M4 7h16" />
-                                        </svg>
-                                        Eliminar
-                                    </a>
+                                                </svg>
+                                                Eliminar
+                                            </button>
 
-                                </div>
-                            </td>
+                                        </div>
+                                    </form>
+                                </td>
 
-                        </tr>
+                            </tr>
                         <?php endforeach; ?>
 
                     </tbody>
