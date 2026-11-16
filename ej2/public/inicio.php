@@ -100,13 +100,13 @@ mysqli_close($llave);
                                         <input type="hidden" name="codigo" value="<?= $item['id'] ?>" />
                                         <div class="flex justify-center items-center gap-2">
 
-                                            <a href="editar.php?id=1"
+                                            <a href="editar.php?id=<?= $item['id'] ?>"
                                                 title="Editar"
                                                 class="w-9 h-9 flex items-center justify-center rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition">
                                                 <i class="fas fa-edit"></i>
                                             </a>
 
-                                            <button type="submit"
+                                            <button type="submit" onclick="return confirm('¿Borrar permanentemente el juego?')"
                                                 class="w-9 h-9 flex items-center justify-center rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
