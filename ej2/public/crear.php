@@ -16,7 +16,7 @@
         if(!longituCadenaValida('nombre', $nombre, 3, 150)){
             $errores=true;
         }else{
-            if(existeJuego($llave, $nombre)){
+            if(existeJuegoGlobal($llave, $nombre)){
                 $errores=true;
             }
         }

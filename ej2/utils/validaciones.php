@@ -29,11 +29,51 @@ function precioValido(float $precio){
     return true;
 }
 
+function existeJuegoGlobal(mysqli $llave, string $nombre, $id=null): bool{
+    $q=($id==null) ? "select id from videojuegos where nombre=?" :
+     "select id from videojuegos where nombre=? AND id!=?";
+    
+     //$q="select id from videojuegos where nombre=?";
+    $stmt=mysqli_prepare($llave, $q);
+    if($stmt){
+        ($id==null) ? mysqli_stmt_bind_param($stmt, 's', $nombre) :
+         mysqli_stmt_bind_param($stmt, 'si', $nombre, $id);
+         
+        mysqli_stmt_execute($stmt);
+        //para poder contar las filas guardo el resultado
+        mysqli_stmt_store_result($stmt);
+        $filas=mysqli_stmt_num_rows($stmt); // sera 1 o 0
+        mysqli_stmt_close($stmt);
+        if($filas==1){
+            $_SESSION['err_nombre']="*** Error, $nombre ya está registrado";
+            return true;
+        }
+    }
+    return false;
+}
+
 function existeJuego(mysqli $llave, string $nombre): bool{
     $q="select id from videojuegos where nombre=?";
     $stmt=mysqli_prepare($llave, $q);
     if($stmt){
         mysqli_stmt_bind_param($stmt, 's', $nombre);
+        mysqli_stmt_execute($stmt);
+        //para poder contar las filas guardo el resultado
+        mysqli_stmt_store_result($stmt);
+        $filas=mysqli_stmt_num_rows($stmt); // sera 1 o 0
+        mysqli_stmt_close($stmt);
+        if($filas==1){
+            $_SESSION['err_nombre']="*** Error, $nombre ya está registrado";
+            return true;
+        }
+    }
+    return false;
+}
+function existeJuego2(mysqli $llave, string $nombre, int $id): bool{
+    $q="select id from videojuegos where nombre=? AND id != ?";
+    $stmt=mysqli_prepare($llave, $q);
+    if($stmt){
+        mysqli_stmt_bind_param($stmt, 'si', $nombre, $id);
         mysqli_stmt_execute($stmt);
         //para poder contar las filas guardo el resultado
         mysqli_stmt_store_result($stmt);

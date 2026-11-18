@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!longituCadenaValida('nombre', $nombre, 3, 150)) {
         $errores = true;
     } else {
-        if (existeJuego($llave, $nombre)) {
-           // $errores = true;
+        if (existeJuegoGlobal($llave, $nombre, $id)) {
+           $errores = true;
         }
     }
 
